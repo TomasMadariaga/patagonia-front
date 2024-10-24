@@ -5,21 +5,21 @@ import service_03 from "../assets/service_3.jpg";
 
 export const Services = () => {
   return (
-    <div className="flex gap-8 justify-center items-baseline py-28">
+    <div className="flex gap-8 justify-center items-baseline py-28 px-10">
       <Card
         image={service_01}
-        title="Reutilización de aguas residuales"
-        description="La reutilización del agua en la construcción y reparación de inmuebles puede ser una buena forma de reducir el consumo de agua dulce y cuidar nuestro planeta."
+        title="Armado del proyecto"
+        description="Contamos con arquitectos, diseñadores y personal especializado para asesorarte en cada paso del proyecto. Te brindamos un acompañamiento integral, asegurando que tu idea se convierta en una realidad sólida y bien planificada."
       />
       <Card
         image={service_02}
-        title="Diseño de espacios habitables"
-        description="Construimos y reparamos inmuebles con materiales sostenibles y de alta calidad para minimizar nuestro impacto en el planeta y maximizar nuestro impacto positivo en la comunidad local."
+        title="Asesoramiento financiero"
+        description="Gracias a nuestras alianzas con proveedores y empresas de servicios, te ayudamos a optimizar los costos del proyecto, obteniendo materiales y servicios de calidad a precios preferenciales."
       />
       <Card
         image={service_03}
-        title="Diseño de jardines sostenibles"
-        description="Aprende a construir y reparar inmuebles con nuestros métodos ecológicos y sostenibles para crear espacios más saludables y amigables con el medio ambiente."
+        title="Ejecución del proyecto"
+        description="La ejecución está garantizada por profesionales certificados que aseguran un trabajo eficiente, cumpliendo con los más altos estándares de calidad y seguridad."
       />
     </div>
   );

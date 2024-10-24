@@ -5,7 +5,7 @@ import { Services } from "../components/services";
 
 export const Home = () => {
   return (
-    <div>
+    <div className="mt-12">
       <ContactHome />
       <AboutHome />
       <SectionHome />

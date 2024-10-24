@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import ICON from "../assets/website_logo.svg";
 import {
   FacebookIcon,
   InstagramIcon,
@@ -62,7 +61,7 @@ export const Footer = () => {
         </ul>
       </div>
       <ul className="flex justify-between items-center w-3/4 py-4">
-        <img className="size-36 h-auto" src={ICON} />
+        <img className="object-cover size-24" src="/logo.png" />
         <ul className="flex text-light-gray gap-10 text-nowrap">
           <li>
             <Link
@@ -81,7 +80,7 @@ export const Footer = () => {
             </Link>
           </li>
           <li>
-            <Link className="transition-all duration-200 hover:underline ">
+            <Link to="our-projects" className="transition-all duration-200 hover:underline ">
               Nuestros Proyectos
             </Link>
           </li>

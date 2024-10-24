@@ -2,7 +2,10 @@ import { ElectricIcon, MaintenanceIcon, StructureIcon } from "../icons/Icons";
 
 export const ReparationServices = () => {
   return (
-    <div  style={{'text-shadow': '1px 1px 0px black'}} className="my-5 pt-5 pb-20 bg-reparacion bg-fixed bg-cover bg-no-repeat relative">
+    <div
+      style={{ "text-shadow": "1px 1px 0px black" }}
+      className="my-5 pt-5 pb-20 bg-reparacion bg-fixed bg-cover bg-no-repeat relative"
+    >
       <div className="flex justify-center">
         <div className="text-center flex flex-col py-14 text-white">
           <div className="absolute inset-0 bg-black/50 z-0"></div>
@@ -19,9 +22,9 @@ export const ReparationServices = () => {
             funcionalidad de tu inmueble.
           </p>
           <p className="text-lg z-10">
-            Intervenciones rápidas, garantía en todas las reparaciones, y
-            servicio disponible [X] días a la semana con seguimiento
-            post-servicio. Agenda tu reparación o mantenimiento hoy mismo.
+            Intervenciones rápidas, garantía en todos los proyectos y servicio
+            disponible todos los dias con seguimiento post-entrega. Agenda tu
+            llamada hoy mismo.
           </p>
           <div className="flex justify-center">
             <div className="flex gap-7 py-12 px-20">
@@ -32,9 +35,8 @@ export const ReparationServices = () => {
                     Reparaciones estructurales especializadas
                   </h2>
                   <p>
-                    Soluciones para problemas de muros y techos.
-                    Diagnosticamos y resolvemos fisuras y
-                    filtraciones.
+                    Soluciones para problemas de muros y techos. Diagnosticamos
+                    y resolvemos fisuras y filtraciones.
                   </p>
                 </div>
               </div>

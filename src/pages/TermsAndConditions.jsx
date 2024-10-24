@@ -9,7 +9,7 @@ export const TermsAndConditions = () => {
       </div>
       <div className="w-1/2">
         <h2 className="text-3xl font-bold text-center py-12 text-slate-900/95">
-          Términos y Condiciones para Profesionales y Clientes de Cruz Patagonia
+          Términos y Condiciones de Cruz Patagonia
         </h2>
         <div>
           <ul className="list-decimal flex flex-col gap-6 font-inter">

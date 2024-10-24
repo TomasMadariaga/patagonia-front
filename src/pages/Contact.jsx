@@ -1,5 +1,6 @@
 import { useForm } from "react-hook-form";
 import { CallIcon, MailIcon, MapMarkerIcon } from "../icons/Icons";
+import axios from "axios";
 
 export const Contact = () => {
   const {
@@ -10,7 +11,9 @@ export const Contact = () => {
 
   const onSubmit = handleSubmit(async (values) => {
     try {
-      console.log(values);
+      const res = await axios.post("http://localhost:3000/email", values);
+      console.log(res);
+      // console.log(values);
     } catch (error) {
       console.error(error);
     }
@@ -20,7 +23,9 @@ export const Contact = () => {
     <div className="mt-16">
       <div className="relative flex w-full bg-interior2 bg-fixed bg-cover bg-no-repeat p-9">
         <div className="absolute inset-0 bg-black/50 z-0"></div>
-        <h1 className="text-5xl text-white z-10 font-inter pl-10">Contáctenos</h1>
+        <h1 className="text-5xl text-white z-10 font-inter pl-10">
+          Contáctenos
+        </h1>
       </div>
       <div className="flex py-7">
         <div className="w-2/3 font-nunito">
@@ -32,7 +37,7 @@ export const Contact = () => {
             <form onSubmit={onSubmit} className="flex flex-col gap-6">
               <div className="flex justify-between items-center">
                 <label htmlFor="name" className="block">
-                  Nombre
+                  Nombre<span className="text-red-500">*</span>
                 </label>
                 <input
                   className="rounded-md border border-black/20 w-2/3 p-2 shadow-md"
@@ -41,23 +46,34 @@ export const Contact = () => {
               </div>
               <div className="flex justify-between items-center">
                 <label htmlFor="email" className="block">
-                  Email
+                  Email<span className="text-red-500">*</span>
                 </label>
                 <input
+                  type="email"
                   className="rounded-md border border-black/20 w-2/3 p-2 shadow-md"
                   {...register("email")}
                 />
               </div>
               <div className="flex justify-between items-center">
+                <label htmlFor="phone" className="block">
+                  Numero de Telefono<span className="text-red-500">*</span>
+                </label>
+                <input
+                  type="tel"
+                  className="rounded-md border border-black/20 w-2/3 p-2 shadow-md"
+                  {...register("phone")}
+                />
+              </div>
+              <div className="flex justify-between items-center">
                 <label htmlFor="message" className="block">
-                  Mensaje
+                  Mensaje<span className="text-red-500">*</span>
                 </label>
                 <textarea
                   className="rounded-md border border-black/20 w-2/3 h-24 shadow-md"
-                  {...register("message")}
+                  {...register("message", { required: true })}
                 />
               </div>
-              <button className="text-white bg-red-500/85 py-2 px-4 rounded-full w-fit transition-all duration-200 hover:bg-red-600">
+              <button className="text-white self-center bg-red-500/85 py-2 px-4 rounded-full w-1/3 transition-all duration-200 hover:bg-red-600">
                 Enviar
               </button>
             </form>
@@ -69,15 +85,15 @@ export const Contact = () => {
           <ul className="flex flex-col gap-1 font-nunito">
             <li className="flex gap-3 items-baseline">
               <MapMarkerIcon size={15} color="#212529" />
-              <p>3575 Fake Buena Vista Avenue</p>
+              <p>Bariloche, Patagonia Argentina</p>
             </li>
             <li className="flex gap-3 items-baseline">
               <CallIcon size={15} color="#212529" />
-              <p>+1 555-555-5556</p>
+              <p>+54 294-4641368</p>
             </li>
             <li className="flex gap-3 items-baseline">
               <MailIcon size={15} color="#212529" />
-              <p>info@sucompañía.example.com</p>
+              <p>rrss.cruzpatagonia@gmail.com</p>
             </li>
           </ul>
         </div>

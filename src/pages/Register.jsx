@@ -1,5 +1,7 @@
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+// import { useAuth } from "../context/AuthContext";
+import { useEffect } from "react";
 
 export const Register = () => {
   const {
@@ -8,13 +10,21 @@ export const Register = () => {
     formState: { errors },
   } = useForm();
 
+  const navigate = useNavigate();
+
+  // const {signup} = useAuth();
+
   const onSubmit = handleSubmit(async (values) => {
     try {
-      // Logica para crear cuenta
+      await signup(values)
     } catch (error) {
       // Pop up de error
     }
   });
+
+  useEffect(() => {
+    if (isAuthenticated) navigate("/");
+  }, [isAuthenticated]);
 
   return (
     <div className="mt-16 flex flex-col items-center font-inter">
@@ -23,6 +33,16 @@ export const Register = () => {
         onSubmit={onSubmit}
       >
         <div className="pb-8 flex flex-col gap-2">
+        <div className="flex flex-col gap-2">
+            <label className="text-slate-700" htmlFor="username">
+              Nombre de usuario
+            </label>
+            <input
+              className="rounded-md border w-full shadow-md p-2 focus:border-red-700 focus:outline-none focus:ring-4 focus:ring-red-200"
+              {...register("username", { required: true })}
+              type="text"
+            />
+          </div>
           <div className="flex flex-col gap-2">
             <label className="text-slate-700" htmlFor="email">
               Correo electrónico
@@ -40,7 +60,7 @@ export const Register = () => {
             <input
               className="rounded-md border w-full shadow-md p-2 focus:border-red-700 focus:outline-none focus:ring-4 focus:ring-red-200"
               {...register("password", { required: true })}
-              type="text"
+              type="password"
             />
           </div>
         </div>
