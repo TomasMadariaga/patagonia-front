@@ -1,11 +1,11 @@
 import { Card } from "./Card";
-import service_01 from "../assets/service_1.jpg";
-import service_02 from "../assets/service_2.jpg";
-import service_03 from "../assets/service_3.jpg";
+import service_01 from "../assets/armar-proyecto2.jpeg";
+import service_02 from "../assets/asesoramiento.jpeg";
+import service_03 from "../assets/ejecucion-obra.jpeg";
 
 export const Services = () => {
   return (
-    <div className="flex gap-8 justify-center items-baseline py-28 px-10">
+    <div className="flex lg:flex-row items-baseline flex-col lg:gap-8 gap-12 justify-center lg:py-28 py-12 lg:px-10">
       <Card
         image={service_01}
         title="Armado del proyecto"

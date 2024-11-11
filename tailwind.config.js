@@ -9,7 +9,8 @@ export default {
       },
       backgroundImage: {
         patagonia: "url('/src/assets/patagonia.webp')",
-        interior: "url('/src/assets/interior.jpg')",
+        interior: "url('/src/assets/interior1.jpeg')",
+        sky: "url('/src/assets/sky.jpg')",
         interior2: "url('/src/assets/interior.jpg')",
         projection: "url('/src/assets/planeacion.webp')",
         construction: "url('/src/assets/construccion.jpeg')",

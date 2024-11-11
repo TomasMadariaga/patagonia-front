@@ -8,9 +8,9 @@ import {
   FaFacebook,
   FaChevronUp,
   FaMoneyCheckAlt,
+  FaTiktok
 } from "react-icons/fa";
 import { FaCalendarDays } from "react-icons/fa6";
-import { RiTwitterXFill } from "react-icons/ri";
 import { TbMailFilled } from "react-icons/tb";
 import {
   MdArchitecture,
@@ -32,16 +32,16 @@ export const HomeIcon = (props) => {
   return <FaHome {...props} />;
 };
 
-export const TwitterIcon = (props) => {
-  return <RiTwitterXFill {...props} />;
-};
-
 export const LinkedInIcon = (props) => {
   return <FaLinkedinIn {...props} />;
 };
 
 export const InstagramIcon = (props) => {
   return <FaInstagram {...props} />;
+};
+
+export const TikTokIcon = (props) => {
+  return <FaTiktok {...props} />;
 };
 
 export const MailIcon = (props) => {

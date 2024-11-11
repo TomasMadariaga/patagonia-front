@@ -16,9 +16,9 @@ export const NavBar = () => {
   // };
 
   return (
-    <nav className="bg-white shadow-xl flex xl:flex-row flex-col xl:items-center xl:justify-between fixed z-20 xl:h-16 h-auto w-full left-0">
+    <nav className="bg-white shadow-lg flex xl:flex-row flex-col xl:items-center xl:justify-between fixed z-20 xl:h-16 h-auto w-full left-0">
       <div className="flex text-gray-500 font-inter xl:py-3 py-5 w-full justify-between px-4">
-        <Link onClick={toggleMenu} to="/">
+        <Link onClick={() => menuOpen & setMenuOpen(false)} to="/">
           <HomeIcon size={24} />
         </Link>
         <button
@@ -52,10 +52,15 @@ export const NavBar = () => {
           </Link>
         </li>
         <li>
+          <Link onClick={toggleMenu} to="">
+            LOL
+          </Link>
+        </li>
+        {/* <li>
           <Link onClick={toggleMenu} to="our-projects">
             Nuestros proyectos
           </Link>
-        </li>
+        </li> */}
         <li>
           <Link onClick={toggleMenu} to="about-us">
             Sobre nosotros
