@@ -7,7 +7,7 @@ import { ServiceCard } from "./ServiceCard";
 
 export const ProjectionServices = () => {
   return (
-    <div className="mb-5 lg:py-20 bg-projection bg-fixed bg-cover bg-no-repeat relative">
+    <div className="lg:py-20 bg-projection bg-fixed bg-cover bg-no-repeat relative">
       <div>
         <div className="flex flex-col lg:gap-0 gap-3 px-8 text-white py-14 text-center">
           <div className="absolute inset-0 bg-black/50 z-0"></div>

@@ -1,24 +1,25 @@
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
-// import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../context/AuthContext";
 import { useEffect } from "react";
+import { toast } from "react-toastify";
 
 export const Login = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: {errors}
   } = useForm();
 
   const navigate = useNavigate();
 
-  // const { signin, isAuthenticated } = useAuth();
+  const { signin, isAuthenticated } = useAuth();
 
   const onSubmit = handleSubmit(async (values) => {
     try {
       await signin(values);
     } catch (error) {
-      // Pop up de error
+      throw new Error(error)
     }
   });
 
@@ -42,6 +43,11 @@ export const Login = () => {
               {...register("email", { required: true })}
               type="text"
             />
+            {errors.email && (
+              <span className="text-red-600 text-sm">
+                El email es requerido.
+              </span>
+            )}
           </div>
           <div className="flex flex-col gap-2">
             <label className="text-slate-700" htmlFor="password">
@@ -52,6 +58,11 @@ export const Login = () => {
               {...register("password", { required: true })}
               type="password"
             />
+            {errors.password && (
+              <span className="text-red-600 text-sm">
+                La contraseña es requerido.
+              </span>
+            )}
           </div>
         </div>
         <button className="px-1 py-2 rounded-full bg-red-700/80 text-white transition-all duration-200 hover:bg-red-700/95">

@@ -40,7 +40,7 @@ export const Footer = () => {
             <ul className="flex lg:gap-5 gap-7 text-light-gray">
               <li>
                 <a className="transition-all duration-150" href="#">
-                  <LinkedInIcon className="lg:scale-100 scale-125" />
+                  <LinkedInIcon className="transition-all duration-250 lg:scale-100 lg:hover:scale-125 scale-125" />
                 </a>
               </li>
               <li>
@@ -48,17 +48,17 @@ export const Footer = () => {
                   className="transition-all duration-150"
                   href="https://www.instagram.com/cruzpatagonia/"
                 >
-                  <InstagramIcon className="lg:scale-100 scale-125" />
+                  <InstagramIcon className="transition-all duration-250 lg:scale-100 lg:hover:scale-125 scale-125" />
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <FacebookIcon className="transition-all duration-250 lg:scale-100 lg:hover:scale-125 scale-125" />
                 </a>
               </li>
               <li>
                 <a className="transition-all duration-150" href="#">
-                  <FacebookIcon className="lg:scale-100 scale-125" />
-                </a>
-              </li>
-              <li>
-                <a className="transition-all duration-150" href="#">
-                  <TikTokIcon className="lg:scale-100 scale-125" />
+                  <TikTokIcon className="transition-all duration-250 lg:scale-100 lg:hover:scale-125 scale-125" />
                 </a>
               </li>
             </ul>

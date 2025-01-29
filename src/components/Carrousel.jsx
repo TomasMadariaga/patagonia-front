@@ -25,9 +25,10 @@ export const Carrousel = ({ project }) => {
                 src={image}
                 alt={`Image ${index}`}
               />
-              <h2 className="absolute top-4 left-1/2 transform -translate-x-1/2 text-white lg:text-2xl font-bold bg-black bg-opacity-50 lg:px-4 px-2 lg:py-2 py-1 rounded-md">
+              {project.title && <h2 className="absolute top-4 left-1/2 transform -translate-x-1/2 text-white lg:text-2xl font-bold bg-black bg-opacity-50 lg:px-4 px-2 lg:py-2 py-1 rounded-md">
                 {project.title}
-              </h2>
+              </h2>}
+              
             </SwiperSlide>
           ))}
         </Swiper>

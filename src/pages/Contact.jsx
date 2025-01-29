@@ -1,6 +1,8 @@
 import { useForm } from "react-hook-form";
 import { CallIcon, MailIcon, MapMarkerIcon } from "../icons/Icons";
 import axios from "axios";
+import { toast } from "react-toastify";
+import { useEffect } from "react";
 
 export const Contact = () => {
   const {
@@ -11,13 +13,62 @@ export const Contact = () => {
 
   const onSubmit = handleSubmit(async (values) => {
     try {
-      const res = await axios.post("http://localhost:3000/email", values);
-      console.log(res);
-      // console.log(values);
+      const { attachments } = values;
+
+      const base64Attachments = await Promise.all(
+        Array.from(attachments).map((file) => {
+          return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = () =>
+              resolve({ name: file.name, content: reader.result });
+            reader.onerror = (error) => reject(error);
+            reader.readAsDataURL(file);
+          });
+        })
+      );
+
+      const payload = {
+        ...values,
+        attachments: base64Attachments,
+      };
+      const res = await axios.post("http://localhost:3000/email", payload);
+      if (res.status === 201) {
+        console.log(res.status)
+        toast.success("Gracias por contactarte, te responderemos en la brevedad", {
+          position: "top-center",
+          pauseOnHover: false,
+          autoClose: 3000,
+          closeButton: false,
+        })
+      }
     } catch (error) {
-      console.error(error);
+      throw new Error(error)
     }
   });
+
+  const errorMessages = {
+    name: "Nombre requerido",
+    email: "Email requerido",
+    phone: "Número de teléfono requerido",
+    message: "Mensaje requerido",
+  };
+
+  const showError = (message) => {
+    toast.error(message, {
+      position: "top-center",
+      pauseOnHover: false,
+      autoClose: 2000,
+      closeButton: false,
+    })
+  }
+
+  useEffect(() => {
+    Object.keys(errors).forEach((field) => {
+      if (errors[field] && errorMessages[field]) {
+        showError(errorMessages[field]);
+      }
+    });
+  }, [errors]);
 
   return (
     <div className="mt-16">
@@ -34,38 +85,51 @@ export const Contact = () => {
             servicios. Haremos todo lo posible por responderle a la brevedad.
           </p>
           <div className="lg:px-20 px-10 flex flex-col py-5">
-            <form onSubmit={onSubmit} className="flex flex-col gap-6">
+            <form
+              onSubmit={onSubmit}
+              encType="multipart/form-data"
+              className="flex flex-col gap-6"
+            >
               <div className="flex lg:flex-row flex-col justify-between items-center">
                 <label htmlFor="name" className="block lg:self-auto self-start">
                   Nombre<span className="text-red-500">*</span>
                 </label>
                 <input
                   className="rounded-md border border-black/20 lg:w-2/3 w-full p-2 shadow-md"
-                  {...register("name")}
+                  {...register("name", {required: true})}
                 />
               </div>
               <div className="flex lg:flex-row flex-col justify-between items-center">
-                <label htmlFor="email" className="block lg:self-auto self-start">
+                <label
+                  htmlFor="email"
+                  className="block lg:self-auto self-start"
+                >
                   Email<span className="text-red-500">*</span>
                 </label>
                 <input
                   type="email"
                   className="rounded-md border border-black/20 lg:w-2/3 w-full p-2 shadow-md"
-                  {...register("email")}
+                  {...register("email", {required: true})}
                 />
               </div>
               <div className="flex lg:flex-row flex-col justify-between items-center">
-                <label htmlFor="phone" className="block lg:self-auto self-start">
+                <label
+                  htmlFor="phone"
+                  className="block lg:self-auto self-start"
+                >
                   Numero de Telefono<span className="text-red-500">*</span>
                 </label>
                 <input
-                  type="tel"
+                  type="number"
                   className="rounded-md border border-black/20 lg:w-2/3 w-full p-2 shadow-md"
-                  {...register("phone")}
+                  {...register("phone", {required: true})}
                 />
               </div>
               <div className="flex lg:flex-row flex-col justify-between items-center">
-                <label htmlFor="message" className="block lg:self-auto self-start">
+                <label
+                  htmlFor="message"
+                  className="block lg:self-auto self-start"
+                >
                   Mensaje<span className="text-red-500">*</span>
                 </label>
                 <textarea
@@ -73,7 +137,24 @@ export const Contact = () => {
                   {...register("message", { required: true })}
                 />
               </div>
-              <button className="text-white self-center bg-red-500/85 py-2 px-4 rounded-full w-1/3 transition-all duration-200 hover:bg-red-600">
+              <div className="flex lg:flex-row flex-col justify-between items-center">
+                <label
+                  htmlFor="message"
+                  className="block lg:self-auto self-start"
+                >
+                  Imagenes
+                </label>
+                <input
+                  type="file"
+                  multiple
+                  accept="image/*"
+                  {...register("attachments", { required: false })}
+                />
+              </div>
+              <button
+                type="submit"
+                className="text-white self-center bg-red-500/85 py-2 px-4 rounded-full w-1/3 transition-all duration-200 hover:bg-red-600"
+              >
                 Enviar
               </button>
             </form>

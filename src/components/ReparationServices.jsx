@@ -3,7 +3,7 @@ import { ServiceCard } from "./ServiceCard";
 
 export const ReparationServices = () => {
   return (
-    <div className="mt-5 lg:py-20 bg-reparacion bg-fixed bg-cover bg-no-repeat relative">
+    <div className="lg:py-20 bg-reparacion bg-fixed bg-cover bg-no-repeat relative">
       <div>
         <div className="text-center flex flex-col lg:gap-0 gap-3 px-8 py-14 text-white">
           <div className="absolute inset-0 bg-black/50 z-0"></div>

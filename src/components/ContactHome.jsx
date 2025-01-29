@@ -11,17 +11,13 @@ export const ContactHome = () => {
               alt="LOGO"
             />
             <h2
-              style={{ "text-shadow": "1px 1px 0px white" }}
+              style={{ "textShadow": "1px 1px 0px white" }}
               className="text-red-600 font-bold text-center text-7xl z-10"
             >
               Cruz Patagonia
             </h2>
           </div>
         </div>
-
-        {/* <div className="p-6 bg-white rounded-full">
-          <HomeIcon className="text-red-500" size={25} />
-        </div> */}
         <div>
           <h2 className="relative text-white font-bold text-center text-5xl z-10 pb-4">
             Diseño, construcción y reparación
