@@ -33,8 +33,7 @@ export const AuthProvider = ({ children }) => {
         name: data.name,
         lastname: data.lastname,
         email: data.email,
-        // pfp: data.profilePicture,
-        // reemplazar con la url
+        role: data.role
       });
 
       if (profilePicture && profilePicture[0]) {
@@ -59,12 +58,10 @@ export const AuthProvider = ({ children }) => {
         name: data.user.name,
         lastname: data.user.lastname,
         email: data.user.email,
-        // pfp: data.user.profilePicture,
+        role: data.user.role
       });
     } catch (error) {
-      console.log(error.response.data.message)
       throw new Error(error.response.data.message);
-      //cambiar a popup de error
     }
   };
 
@@ -85,6 +82,7 @@ export const AuthProvider = ({ children }) => {
         name: data.data.user.name,
         lastname: data.data.user.lastname,
         email: data.data.user.email,
+        role: data.data.user.role
       });
     } catch (error) {
       setIsAuthenticated(false);

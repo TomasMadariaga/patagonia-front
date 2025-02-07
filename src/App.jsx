@@ -17,35 +17,50 @@ import { Professionals } from "./pages/Professionals";
 import { UserProvider } from "./context/UserContext";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
+import { AdminPanel } from "./pages/AdminPanel";
+import { ProtectedRoute } from "./pages/ProtectedRoute";
+import { ProtectedAdminRoute } from "./pages/ProtectedAdminRoute";
+import { ClientActivity } from "./pages/ClientActivity";
+import { WorkProvider } from "./context/WorkContext";
+import { ProfessionalActivity } from "./pages/ProfessionalActivity";
 
 function App() {
   return (
     <AuthProvider>
       <UserProvider>
-        <BrowserRouter>
-          <div className="min-h-screen flex flex-col overflow-x-hidden">
-            <ToastContainer />
-            <NavBar />
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="contact" element={<Contact />} />
-              <Route path="about-us" element={<AboutUs />} />
-              <Route
-                path="terms-and-conditions"
-                element={<TermsAndConditions />}
-              />
-              <Route path="login" element={<Login />} />
-              <Route path="register" element={<Register />} />
-              <Route path="services" element={<Services />} />
-              {/* <Route path="our-projects" element={<OurProjects />} /> */}
-              <Route path="professionals" element={<Professionals />} />
-              <Route path="construction" element={<Construction />} />
-              <Route path="reparation" element={<Reparation />} />
-            </Routes>
-            <Upbutton />
-            <Footer />
-          </div>
-        </BrowserRouter>
+        <WorkProvider>
+          <BrowserRouter>
+            <div className="min-h-screen flex flex-col overflow-x-hidden">
+              <ToastContainer />
+              <NavBar />
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="about-us" element={<AboutUs />} />
+                <Route
+                  path="terms-and-conditions"
+                  element={<TermsAndConditions />}
+                />
+                <Route path="login" element={<Login />} />
+                <Route path="register" element={<Register />} />
+                <Route path="services" element={<Services />} />
+                {/* <Route path="our-projects" element={<OurProjects />} /> */}
+                <Route path="professionals" element={<Professionals />} />
+                <Route path="construction" element={<Construction />} />
+                <Route path="reparation" element={<Reparation />} />
+                <Route element={<ProtectedRoute />}>
+                  <Route path="contact" element={<Contact />} />
+                  <Route path="activity" element={<ClientActivity />} />
+                  <Route path="activity-professional" element={<ProfessionalActivity/>}/>
+                </Route>
+                <Route element={<ProtectedAdminRoute />}>
+                  <Route path="admin" element={<AdminPanel />} />
+                </Route>
+              </Routes>
+              <Upbutton />
+              <Footer />
+            </div>
+          </BrowserRouter>
+        </WorkProvider>
       </UserProvider>
     </AuthProvider>
   );

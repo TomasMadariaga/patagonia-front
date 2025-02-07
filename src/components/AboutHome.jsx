@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import PHOTO from "../assets/couch2.jpeg";
 
 export const AboutHome = () => {
@@ -8,7 +7,7 @@ export const AboutHome = () => {
         <p className="font-roboto text-sm font-thin lg:block hidden">
           SOBRE NOSOTROS
         </p>
-        <h3 className="text-4xl tracking-wide lg:text-left text-center text-black/85 font-inter">
+        <h3 className="text-4xl tracking-wide lg:text-left text-center font-inter">
           Espacios únicos, diseñados a tu medida
         </h3>
         <p className="font-nunito text-lg lg:text-left text-center">

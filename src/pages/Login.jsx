@@ -2,7 +2,6 @@ import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useEffect } from "react";
-import { toast } from "react-toastify";
 
 export const Login = () => {
   const {

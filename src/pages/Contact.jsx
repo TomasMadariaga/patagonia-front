@@ -3,13 +3,20 @@ import { CallIcon, MailIcon, MapMarkerIcon } from "../icons/Icons";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useEffect } from "react";
+import {useAuth} from '../context/AuthContext'
+import { useNavigate } from "react-router-dom";
 
 export const Contact = () => {
+
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
+
+  const {isAuthenticated} = useAuth()
 
   const onSubmit = handleSubmit(async (values) => {
     try {
@@ -133,6 +140,7 @@ export const Contact = () => {
                   Mensaje<span className="text-red-500">*</span>
                 </label>
                 <textarea
+                  placeholder="Hola Cruz Patagonia, me asesoras en..."
                   className="rounded-md border border-black/20 lg:w-2/3 w-full h-24 shadow-md"
                   {...register("message", { required: true })}
                 />

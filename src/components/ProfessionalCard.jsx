@@ -1,16 +1,27 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
+import { toast } from "react-toastify";
+import { useAuth } from "../context/AuthContext";
 
 export const ProfessionalCard = ({
   id,
   name,
   role,
   photo,
-  rating,
-  totalVotes,
+  rating: initialRating,
+  totalVotes: initialTotalVotes,
   onRate,
-  find
+  find,
 }) => {
+  const { user } = useAuth();
+  const [rating, setRating] = useState(initialRating);
+  const [totalVotes, setTotalVotes] = useState(initialTotalVotes);
+
+  useEffect(() => {
+    setRating(initialRating);
+    setTotalVotes(initialTotalVotes);
+  }, [initialRating, initialTotalVotes]);
+
   const MAX_STARS = 5;
 
   const renderStars = () => {
@@ -32,37 +43,55 @@ export const ProfessionalCard = ({
   };
 
   const handleRate = async (value) => {
-    if (onRate) await onRate({ id: id, rating: value });
-    find();
+    try {
+      if (onRate) {
+        await onRate({ id: id, rating: value });
+      }
+      if (find) {
+        find();
+      }
+      setRating(value);
+      setTotalVotes(totalVotes + 1);
+    } catch (error) {
+      toast.error(`${error.response.data.message}`, {
+        position: "top-center",
+        pauseOnHover: false,
+        autoClose: 2000,
+        closeButton: false,
+        toastId: 1,
+      });
+    }
   };
 
   return (
-    <div className="bg-white shadow-md rounded-lg overflow-hidden w-72">
+    <div className="bg-white shadow-md rounded-lg overflow-hidden w-48 hover:shadow-lg transition-shadow">
       <img
-        className="w-full h-48 object-cover"
-        src={`http://localhost:3000/uploads/${photo}`}
+        className="w-full h-28 object-cover"
+        src={`http://localhost:3000/uploads/pfp/${photo}`}
         alt={`${name}'s photo`}
       />
-      <div className="p-4">
-        <h3 className="text-xl font-semibold text-gray-800">{name}</h3>
-        <p className="text-gray-500">{role}</p>
-        <div className="flex items-center mt-2">
+      <div className="p-3">
+        <h3 className="text-sm font-semibold text-gray-800">{name}</h3>
+        <p className="text-xs text-gray-500">{role}</p>
+        <div className="flex items-center mt-1">
           {renderStars()}
-          <span className="text-sm text-gray-500 ml-2">
+          <span className="text-xs text-gray-500 ml-1">
             ({rating.toFixed(1)} de {totalVotes} votos)
           </span>
         </div>
-        <div className="flex gap-1 mt-2">
-          {[1, 2, 3, 4, 5].map((value) => (
-            <button
-              key={value}
-              onClick={() => handleRate(value)}
-              className="text-gray-400 hover:text-yellow-500"
-            >
-              <FaStar />
-            </button>
-          ))}
-        </div>
+        {onRate && user.role === "Cliente" ? (
+          <div className="tomas flex gap-1 mt-1">
+            {[1, 2, 3, 4, 5].map((v) => (
+              <button
+                key={v}
+                onClick={() => handleRate(v)}
+                className="text-gray-300 hover:text-yellow-400 transition-colors"
+              >
+                <FaStar className="w-3 h-3" />
+              </button>
+            ))}
+          </div>
+        ) : null}
       </div>
     </div>
   );
