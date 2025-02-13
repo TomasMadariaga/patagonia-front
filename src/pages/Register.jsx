@@ -17,6 +17,11 @@ export const Register = () => {
 
   const [previewImage, setPreviewImage] = useState(null);
 
+  const handleLinkClick = () => {
+    window.scrollTo(0, 0);
+    setMenuOpen(false);
+  };
+
   const onSubmit = handleSubmit(async (values) => {
     try {
       const { confirmPassword, terms, ...rest } = values;
@@ -55,7 +60,7 @@ export const Register = () => {
   return (
     <div className="mt-16 flex flex-col items-center font-inter">
       <form
-        className="py-16 flex flex-col gap-6 w-1/4 px-2"
+        className="py-16 flex flex-col gap-6 xl:w-1/4 px-2"
         onSubmit={onSubmit}
         encType="multipart/form-data"
       >
@@ -229,6 +234,7 @@ export const Register = () => {
               <label htmlFor="terms" className="text-slate-700">
                 He leído y acepto los{" "}
                 <Link
+                  onClick={handleLinkClick}
                   to="/terms-and-conditions"
                   className="text-red-700 hover:underline"
                 >

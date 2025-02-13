@@ -10,8 +10,8 @@ export const AdminPanel = () => {
 
   const contenido = {
     Usuarios: <Users />,
-    Formulario: <WorkForm />,
     Trabajos: <WorksList/>,
+    Formulario: <WorkForm />,
     Profesional: <RegisterProfessional/>
   };
 

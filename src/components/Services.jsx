@@ -5,7 +5,7 @@ import service_03 from "../assets/ejecucion-obra.jpeg";
 
 export const Services = () => {
   return (
-    <div className="flex lg:flex-row items-baseline flex-col lg:gap-8 gap-12 justify-center lg:py-28 py-12 lg:px-10">
+    <div className="flex lg:flex-row items-center flex-col lg:gap-8 gap-12 justify-center lg:py-28 py-12 lg:px-10">
       <Card
         image={service_01}
         title="Armado del proyecto"

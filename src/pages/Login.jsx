@@ -37,7 +37,7 @@ export const Login = () => {
   return (
     <div className="mt-16 flex flex-col items-center font-inter">
       <form
-        className="py-16 flex flex-col gap-4 w-1/4 px-2"
+        className="py-16 flex flex-col gap-4 xl:w-1/4 px-2"
         onSubmit={onSubmit}
       >
         <div className="pb-8 flex flex-col gap-2">

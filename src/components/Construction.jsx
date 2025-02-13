@@ -35,7 +35,7 @@ export const Construction = () => {
   return (
     <div className="flex flex-col xl:items-center mt-16 py-10 bg-gray-100">
       <div className="bg-white shadow xl:w-3/4 p-10">
-        <div className="place-self-center w-3/4 text-center mb-10">
+        <div className="place-self-center xl:w-3/4 text-center mb-10">
           <h2 className="text-4xl font-bold text-gray-800 pb-4">
             Transforma tus ideas en espacios de ensueño
           </h2>
@@ -83,7 +83,7 @@ export const Construction = () => {
 
                 {/* Texto sobre la imagen */}
                 <div className="absolute z-10 inset-0 flex justify-center items-center text-center bg-black bg-opacity-50 p-6 rounded-lg">
-                  <p className="text-white text-lg max-w-md">
+                  <p className="text-white text-lg max-w-md lg:font-normal font-medium">
                     {service.description}
                   </p>
                 </div>

@@ -6,6 +6,11 @@ import {
   TikTokIcon,
 } from "../icons/Icons";
 
+const handleLinkClick = () => {
+  window.scrollTo(0, 0);
+  setMenuOpen(false);
+};
+
 export const Footer = () => {
   return (
     <footer className="flex flex-col bg-marine-blue text-white w-full justify-center items-center">
@@ -79,6 +84,7 @@ export const Footer = () => {
         <ul className="flex text-light-gray gap-10 lg:text-nowrap">
           <li>
             <Link
+              onClick={handleLinkClick}
               to="/"
               className="transition-all duration-200 hover:underline"
             >
@@ -87,6 +93,7 @@ export const Footer = () => {
           </li>
           <li>
             <Link
+              onClick={handleLinkClick}
               to="/about-us"
               className="transition-all duration-200 hover:underline"
             >
@@ -95,6 +102,7 @@ export const Footer = () => {
           </li>
           <li>
             <Link
+              onClick={handleLinkClick}
               to="terms-and-conditions"
               className="transition-all duration-200 hover:underline"
             >

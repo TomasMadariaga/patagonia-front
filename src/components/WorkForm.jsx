@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useUser } from "../context/UserContext";
-import {useWork} from '../context/WorkContext'
+import { useWork } from "../context/WorkContext";
 import { toast } from "react-toastify";
 
 export const WorkForm = () => {
   const { findClients, findProfessionals } = useUser();
-  const {createAWork} = useWork();
-  const { register, handleSubmit, setValue } = useForm();
+  const { createAWork } = useWork();
+  const { register, handleSubmit } = useForm();
   const [clients, setClients] = useState([]);
   const [professionals, setProfessionals] = useState([]);
 
@@ -23,6 +23,18 @@ export const WorkForm = () => {
 
   const onSubmit = async (work) => {
     try {
+      if (work.clientId === "" || work.projectLeader === "") {
+        toast.error("Por favor, seleccione un cliente y un líder de proyecto válidos.", {
+          toastId: 1,
+          position: "top-center",
+          pauseOnHover: false,
+          autoClose: 3000,
+          closeButton: false,
+          className: "text-center",
+        });
+        return;
+      }
+
       const formattedWork = {
         ...work,
         value: Number(work.value),
@@ -31,12 +43,11 @@ export const WorkForm = () => {
         budgetNumber: Number(work.budget),
         projectLeaderId: Number(work.projectLeader),
       };
-  
+
       delete formattedWork.budget;
       delete formattedWork.professional;
       delete formattedWork.projectLeader;
-  
-  
+
       const data = await createAWork(formattedWork);
       toast.success("Trabajo creado exitosamente", {
         toastId: 1,
@@ -45,10 +56,9 @@ export const WorkForm = () => {
         autoClose: 3000,
         closeButton: false,
         className: "text-center",
-      })
+      });
       return data;
     } catch (error) {
-      console.log(error)
       toast.error(`Hubo un error al crear el trabajo`, {
         toastId: 1,
         position: "top-center",
@@ -56,9 +66,8 @@ export const WorkForm = () => {
         autoClose: 3000,
         closeButton: false,
         className: "text-center",
-      })
+      });
     }
-    
   };
 
   return (
@@ -141,7 +150,6 @@ export const WorkForm = () => {
             className="border rounded p-2 w-full"
           />
         </div>
-
         <div>
           <label htmlFor="client" className="block text-sm font-semibold">
             Seleccionar Cliente
@@ -151,6 +159,7 @@ export const WorkForm = () => {
             {...register("clientId", { required: true })}
             className="border rounded p-2 w-full"
           >
+            <option value="">Elija un cliente</option>
             {clients.map((client) => (
               <option key={client.id} value={client.id}>
                 {client.name} {client.lastname}
@@ -158,48 +167,40 @@ export const WorkForm = () => {
             ))}
           </select>
         </div>
-
         <div>
-          <label
-            htmlFor="projectLeader"
-            className="block text-sm font-semibold"
-          >
-            Seleccionar quien estara a cargo
+          <label htmlFor="projectLeader" className="block text-sm font-semibold">
+            Seleccionar quien estará a cargo
           </label>
           <select
             id="projectLeader"
             {...register("projectLeader", { required: true })}
             className="border rounded p-2 w-full"
           >
+            <option value="">Elija un líder de proyecto</option>
             {professionals.map((professional) => (
               <option key={professional.id} value={professional.id}>
-                {professional.name} {professional.lastname} ({professional.role}
-                )
+                {professional.name} {professional.lastname} ({professional.role})
               </option>
             ))}
           </select>
         </div>
 
         <div>
-          <label
-            htmlFor="paymentMeethod"
-            className="block text-sm font-semibold"
-          >
+          <label htmlFor="paymentMethod" className="block text-sm font-semibold">
             Seleccionar método de pago
           </label>
           <select
-            className="border rounded p-2 w-full"
             id="paymentMethod"
             {...register("paymentMethod", { required: true })}
+            className="border rounded p-2 w-full"
           >
-            <option value={"Efectivo"}>Efectivo</option>
-            <option value={"Tarjeta de crédito"}>Tarjeta de crédito</option>
-            <option value={"Tarjeta de débito"}>Tarjeta de débito</option>
-            <option value={"Transferencia bancaria"}>
-              Transferencia bancaria
-            </option>
-            <option value={"Cheque"}>Cheque</option>
-            <option value={"Billetera digital"}>Billetera digital</option>
+            <option value="">Elija un método de pago</option>
+            <option value="Efectivo">Efectivo</option>
+            <option value="Tarjeta de crédito">Tarjeta de crédito</option>
+            <option value="Tarjeta de débito">Tarjeta de débito</option>
+            <option value="Transferencia bancaria">Transferencia bancaria</option>
+            <option value="Cheque">Cheque</option>
+            <option value="Billetera digital">Billetera digital</option>
           </select>
         </div>
 

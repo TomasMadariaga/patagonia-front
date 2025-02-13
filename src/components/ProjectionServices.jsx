@@ -28,7 +28,7 @@ export const ProjectionServices = () => {
             de última generación.
           </p>
         </div>
-        <div className="flex lg:flex-row flex-col gap-7 py-12 lg:px-20 px-10">
+        <div className="flex lg:flex-row flex-col gap-7 lg:py-12 lg:px-20 px-10">
           <ServiceCard
             icon={<AnalyticsIcon size={100} className="text-blue-700 z-10" />}
             title="Análisis de viabilidad"
