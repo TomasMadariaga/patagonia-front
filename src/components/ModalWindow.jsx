@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { Work } from "./Work";
 
 export const Modal = ({

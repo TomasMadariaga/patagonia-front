@@ -2,12 +2,13 @@ import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useEffect } from "react";
+import { toast } from "react-toastify";
 
 export const Login = () => {
   const {
     register,
     handleSubmit,
-    formState: {errors}
+    formState: { errors },
   } = useForm();
 
   const navigate = useNavigate();
@@ -18,7 +19,14 @@ export const Login = () => {
     try {
       await signin(values);
     } catch (error) {
-      throw new Error(error)
+      toast.error(`${error}`, {
+        toastId: 1,
+        position: "top-center",
+        pauseOnHover: false,
+        autoClose: 3000,
+        closeButton: false,
+        className: "text-center",
+      });
     }
   });
 
@@ -67,12 +75,12 @@ export const Login = () => {
         <button className="px-1 py-2 rounded-full bg-red-700/80 text-white transition-all duration-200 hover:bg-red-700/95">
           Iniciar Sesión
         </button>
-        <a
-          href="#"
+        <Link
+          to={'/request-reset-password'}
           className="text-red-700 transition-all duration-150 hover:text-red-900 hover:underline"
         >
           Restablecer contraseña
-        </a>
+        </Link>
         <p className="text-center text-slate-700">
           No tienes cuenta? Registrate{" "}
           <Link

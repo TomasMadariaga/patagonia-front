@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useUser } from "../context/UserContext";
 import {useWork} from '../context/WorkContext'
+import { toast } from "react-toastify";
 
 export const WorkForm = () => {
   const { findClients, findProfessionals } = useUser();
@@ -21,22 +22,43 @@ export const WorkForm = () => {
   }, []);
 
   const onSubmit = async (work) => {
-    const formattedWork = {
-      ...work,
-      value: Number(work.value),
-      commission: Number(work.commission),
-      clientId: Number(work.clientId),
-      budgetNumber: Number(work.budget),
-      projectLeaderId: Number(work.projectLeader),
-    };
-
-    delete formattedWork.budget;
-    delete formattedWork.professional;
-    delete formattedWork.projectLeader;
-
-
-    const data = await createAWork(formattedWork);
-    return data;
+    try {
+      const formattedWork = {
+        ...work,
+        value: Number(work.value),
+        commission: Number(work.commission),
+        clientId: Number(work.clientId),
+        budgetNumber: Number(work.budget),
+        projectLeaderId: Number(work.projectLeader),
+      };
+  
+      delete formattedWork.budget;
+      delete formattedWork.professional;
+      delete formattedWork.projectLeader;
+  
+  
+      const data = await createAWork(formattedWork);
+      toast.success("Trabajo creado exitosamente", {
+        toastId: 1,
+        position: "top-center",
+        pauseOnHover: false,
+        autoClose: 3000,
+        closeButton: false,
+        className: "text-center",
+      })
+      return data;
+    } catch (error) {
+      console.log(error)
+      toast.error(`Hubo un error al crear el trabajo`, {
+        toastId: 1,
+        position: "top-center",
+        pauseOnHover: false,
+        autoClose: 3000,
+        closeButton: false,
+        className: "text-center",
+      })
+    }
+    
   };
 
   return (
@@ -56,6 +78,18 @@ export const WorkForm = () => {
             id="address"
             type="text"
             {...register("address", { required: true })}
+            className="border rounded p-2 w-full"
+          />
+        </div>
+
+        <div>
+          <label htmlFor="service" className="block text-sm font-semibold">
+            Servicio
+          </label>
+          <input
+            id="service"
+            type="text"
+            {...register("service", { required: true })}
             className="border rounded p-2 w-full"
           />
         </div>
@@ -92,7 +126,7 @@ export const WorkForm = () => {
             id="value"
             type="number"
             {...register("value", { required: true })}
-            className="border rounded p-2 w-full"
+            className="border rounded p-2 w-full appearance-none [-moz-appearance:textfield]"
           />
         </div>
 

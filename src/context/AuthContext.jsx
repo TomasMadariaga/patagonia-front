@@ -22,6 +22,10 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
+  const updateUserData = (newUserData) => {
+    setUser((prevUser) => ({ ...prevUser, ...newUserData }));
+  };
+
   const signup = async (user) => {
     try {
       const { profilePicture, ...userData } = user;
@@ -110,6 +114,7 @@ export const AuthProvider = ({ children }) => {
         isAuthenticated,
         logout,
         checkUser,
+        updateUserData
       }}
     >
       {children}

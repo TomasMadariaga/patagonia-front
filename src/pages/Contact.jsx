@@ -3,20 +3,13 @@ import { CallIcon, MailIcon, MapMarkerIcon } from "../icons/Icons";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useEffect } from "react";
-import {useAuth} from '../context/AuthContext'
-import { useNavigate } from "react-router-dom";
 
 export const Contact = () => {
-
-  const navigate = useNavigate();
-
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-
-  const {isAuthenticated} = useAuth()
 
   const onSubmit = handleSubmit(async (values) => {
     try {
@@ -38,7 +31,7 @@ export const Contact = () => {
         ...values,
         attachments: base64Attachments,
       };
-      const res = await axios.post("http://localhost:3000/email", payload);
+      const res = await axios.post(`http://localhost:3000/email`, payload);
       if (res.status === 201) {
         console.log(res.status)
         toast.success("Gracias por contactarte, te responderemos en la brevedad", {

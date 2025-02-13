@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import { FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
 import { toast } from "react-toastify";
 import { useAuth } from "../context/AuthContext";
+import { Link } from "react-router-dom";
 
 export const ProfessionalCard = ({
+  work,
   id,
   name,
   role,
@@ -71,7 +73,7 @@ export const ProfessionalCard = ({
         alt={`${name}'s photo`}
       />
       <div className="p-3">
-        <h3 className="text-sm font-semibold text-gray-800">{name}</h3>
+        <Link to={`/professional/${id}`} className="text-sm font-semibold text-gray-800 transition-all duration-200 hover:underline">{name}</Link>
         <p className="text-xs text-gray-500">{role}</p>
         <div className="flex items-center mt-1">
           {renderStars()}
@@ -79,7 +81,7 @@ export const ProfessionalCard = ({
             ({rating.toFixed(1)} de {totalVotes} votos)
           </span>
         </div>
-        {onRate && user.role === "Cliente" ? (
+        {user?.role === "Cliente" && onRate && work.status === "Completo" ? (
           <div className="tomas flex gap-1 mt-1">
             {[1, 2, 3, 4, 5].map((v) => (
               <button

@@ -27,9 +27,6 @@ export const ContactHome = () => {
             brindar soluciones de calidad para nuestros clientes.
           </p>
         </div>
-        {/* <button className="bg-red-500 py-2 px-4 rounded-full text-white transition-all duration-300 hover:bg-red-600">
-          Únete al cambio hacia una construcción más sostenible
-        </button> */}
       </div>
     </div>
   );

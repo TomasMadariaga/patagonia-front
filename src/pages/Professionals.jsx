@@ -1,10 +1,10 @@
 import { useEffect } from "react";
 import { ProfessionalCard } from "../components/ProfessionalCard";
 import { useUser } from "../context/UserContext";
+import { Link } from "react-router-dom";
 
 export const Professionals = () => {
-  const { findProfessionals, professionals, setProfessionals } =
-    useUser();
+  const { findProfessionals, professionals, setProfessionals } = useUser();
 
   const find = async () => {
     const data = await findProfessionals();
@@ -25,16 +25,18 @@ export const Professionals = () => {
         </div>
       ) : (
         professionals.map((professional) => (
-          <ProfessionalCard
-            key={professional.id}
-            find={find}
-            id={professional.id}
-            name={professional.name}
-            role={professional.role}
-            photo={professional.profilePicture}
-            rating={professional.rating}
-            totalVotes={professional.totalVotes}
-          />
+          <Link to={`../professional/${professional.id}`}>
+            <ProfessionalCard
+              key={professional.id}
+              find={find}
+              id={professional.id}
+              name={professional.name}
+              role={professional.role}
+              photo={professional.profilePicture}
+              rating={professional.rating}
+              totalVotes={professional.totalVotes}
+            />
+          </Link>
         ))
       )}
     </div>

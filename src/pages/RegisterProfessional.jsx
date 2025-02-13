@@ -1,10 +1,9 @@
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import { useEffect, useState } from "react";
+import { useState} from "react";
 import { toast } from "react-toastify";
 
-export const Register = () => {
+export const RegisterProfessional = () => {
   const {
     register,
     handleSubmit,
@@ -12,15 +11,22 @@ export const Register = () => {
     formState: { errors },
   } = useForm();
 
-  const navigate = useNavigate();
-  const { signup, isAuthenticated } = useAuth();
+  const { signup } = useAuth();
 
   const [previewImage, setPreviewImage] = useState(null);
 
   const onSubmit = handleSubmit(async (values) => {
     try {
-      const { confirmPassword, terms, ...rest } = values;
+      const {confirmPassword, ...rest} = values
       await signup(rest);
+      toast.success("Profesional creado con exito", {
+        toastId: 1,
+        position: "top-center",
+        pauseOnHover: false,
+        autoClose: 3000,
+        closeButton: false,
+        className: "text-center",
+      })
     } catch (error) {
       toast.error(`${error}`, {
         toastId: 1,
@@ -48,14 +54,10 @@ export const Register = () => {
     required: true,
   });
 
-  useEffect(() => {
-    if (isAuthenticated) navigate("/");
-  }, [isAuthenticated]);
-
   return (
-    <div className="mt-16 flex flex-col items-center font-inter">
+    <div className="flex flex-col items-center font-inter">
       <form
-        className="py-16 flex flex-col gap-6 w-1/4 px-2"
+        className="flex flex-col gap-6 w-1/4 px-2 pb-5"
         onSubmit={onSubmit}
         encType="multipart/form-data"
       >
@@ -183,8 +185,7 @@ export const Register = () => {
               {...register("confirmPassword", {
                 required: "La confirmación de contraseña es requerida.",
                 validate: (value) =>
-                  value === watch("password") ||
-                  "Las contraseñas no coinciden.",
+                  value === watch("password") || "Las contraseñas no coinciden.",
               })}
               type="password"
             />
@@ -204,8 +205,7 @@ export const Register = () => {
                 required: "El número de teléfono es requerido.",
                 pattern: {
                   value: /^[0-9]{8,15}$/,
-                  message:
-                    "El número de teléfono debe tener entre 8 y 15 dígitos.",
+                  message: "El número de teléfono debe tener entre 8 y 15 dígitos.",
                 },
               })}
               type="text"
@@ -217,28 +217,20 @@ export const Register = () => {
             )}
           </div>
           <div className="flex flex-col gap-2">
-            <div className="flex items-center">
-              <input
-                type="checkbox"
-                id="terms"
-                {...register("terms", {
-                  required: "Debes aceptar los términos y servicios.",
-                })}
-                className="mr-2"
-              />
-              <label htmlFor="terms" className="text-slate-700">
-                He leído y acepto los{" "}
-                <Link
-                  to="/terms-and-conditions"
-                  className="text-red-700 hover:underline"
-                >
-                  términos y servicios
-                </Link>
-              </label>
-            </div>
-            {errors.terms && (
+            <label className="text-slate-700">Rol</label>
+            <select
+              className="rounded-md border shadow-md p-2 focus:border-red-700 appearance-none focus:outline-none focus:ring-4 focus:ring-red-200"
+              {...register("role", { required: true })}
+            >
+              <option value={"Pintor"}>Pintor</option>
+              <option value={"Albañil"}>Albañil</option>
+              <option value={"Singuero"}>Singuero</option>
+              <option value={"Herrero"}>Herrero</option>
+              <option value={"Carpintero"}>Carpintero</option>
+            </select>
+            {errors.role && (
               <span className="text-red-600 text-sm">
-                {errors.terms.message}
+                El rol es obligatorio.
               </span>
             )}
           </div>
@@ -246,15 +238,6 @@ export const Register = () => {
         <button className="px-1 py-2 rounded-full bg-red-700/80 text-white transition-all duration-200 hover:bg-red-700/95">
           Crear cuenta
         </button>
-        <p className="text-center text-slate-700">
-          ¿Ya tienes una cuenta? Inicia sesión{" "}
-          <Link
-            to="/login"
-            className="text-red-700 transition-all duration-150 hover:text-red-900 hover:underline"
-          >
-            aquí
-          </Link>
-        </p>
       </form>
     </div>
   );

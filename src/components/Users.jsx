@@ -26,10 +26,12 @@ export const Users = () => {
     e.preventDefault();
     if (editUser) {
       try {
-        await updateUser(editUser.id, editUser);
+        const {resetPasswordToken, ...rest} = editUser 
+        await updateUser(editUser.id, rest);
         setEditUser(null);
       } catch (error) {
-        console.error("Error updating user:", error);
+        console.log(error)
+        throw new Error(error);
       }
     }
   };
@@ -46,7 +48,7 @@ export const Users = () => {
         const usersFounded = await findUsers();
         setUsers(usersFounded.data);
       } catch (error) {
-        console.error("Error fetching users:", error);
+        throw new Error(error);
       }
     };
     fetchUsers();
@@ -56,7 +58,7 @@ export const Users = () => {
     <div className="p-4">
       <input
         type="text"
-        placeholder="Buscar por ID, nombre, apellido, email o rol"
+        placeholder="Buscar"
         className="mb-4 p-2 w-full border rounded"
         onChange={(e) => setSearchTerm(e.target.value)}
         value={searchTerm}
@@ -111,6 +113,18 @@ export const Users = () => {
               />
             </div>
             <div className="mb-4">
+              <label htmlFor="password" className="block text-sm font-medium mb-2">
+                Contraseña
+              </label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                className="p-2 w-full border rounded"
+                onChange={handleChange}
+              />
+            </div>
+            <div className="mb-4">
               <label htmlFor="role" className="block text-sm font-medium mb-2">
                 Rol
               </label>
@@ -148,7 +162,7 @@ export const Users = () => {
         </div>
       ) : (
         <div className="overflow-x-auto">
-          <table className="w-full border border-gray-300 shadow-md">
+          <table className="w-full border border-gray-300 shadow-md block max-h-[500px] overflow-y-auto">
             <thead className="bg-gray-200">
               <tr>
                 <th className="border px-4 py-2">ID</th>

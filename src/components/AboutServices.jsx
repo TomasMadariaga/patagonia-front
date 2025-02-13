@@ -20,7 +20,7 @@ export const AboutServices = () => {
           <p className="lg:text-left text-center">
             Cada proyecto está diseñado para adaptarse a tus gustos y
             necesidades, brindándote un ambiente funcional y
-            estéticamente agradable.
+            estéticamente agradable.
           </p>
         </div>
         <Link

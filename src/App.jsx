@@ -10,7 +10,6 @@ import { Login } from "./pages/Login";
 import { Register } from "./pages/Register";
 import { Services } from "./pages/Services";
 import { AuthProvider } from "./context/AuthContext";
-// import { OurProjects } from "./pages/OurProjects";
 import { Construction } from "./components/Construction";
 import { Reparation } from "./components/Reparation";
 import { Professionals } from "./pages/Professionals";
@@ -23,6 +22,10 @@ import { ProtectedAdminRoute } from "./pages/ProtectedAdminRoute";
 import { ClientActivity } from "./pages/ClientActivity";
 import { WorkProvider } from "./context/WorkContext";
 import { ProfessionalActivity } from "./pages/ProfessionalActivity";
+import { Profile } from "./pages/Profile";
+import { PublicProfile } from "./pages/PublicProfile";
+import { RequestResetPassword } from "./pages/RequestResetPassword";
+import { ResetPassword } from "./pages/ResetPassword";
 
 function App() {
   return (
@@ -43,14 +46,26 @@ function App() {
                 <Route path="login" element={<Login />} />
                 <Route path="register" element={<Register />} />
                 <Route path="services" element={<Services />} />
-                {/* <Route path="our-projects" element={<OurProjects />} /> */}
                 <Route path="professionals" element={<Professionals />} />
                 <Route path="construction" element={<Construction />} />
                 <Route path="reparation" element={<Reparation />} />
+                <Route path={`professional/:id`} element={<PublicProfile />} />
+                <Route
+                  path="request-reset-password"
+                  element={<RequestResetPassword />}
+                />
+                <Route
+                  path="reset-password/:resetPasswordToken"
+                  element={<ResetPassword />}
+                />
                 <Route element={<ProtectedRoute />}>
                   <Route path="contact" element={<Contact />} />
                   <Route path="activity" element={<ClientActivity />} />
-                  <Route path="activity-professional" element={<ProfessionalActivity/>}/>
+                  <Route
+                    path="activity-professional"
+                    element={<ProfessionalActivity />}
+                  />
+                  <Route path="profile" element={<Profile />} />
                 </Route>
                 <Route element={<ProtectedAdminRoute />}>
                   <Route path="admin" element={<AdminPanel />} />

@@ -13,12 +13,12 @@ export const IncomeReport = () => {
 
       const groupedEarnings = data.reduce((acc, work) => {
         const date = new Date(work.createdAt);
-        const monthYear = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}`; // Formato: "YYYY-MM"
+        const monthYear = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}`;
 
         if (!acc[monthYear]) {
           acc[monthYear] = 0;
         }
-        acc[monthYear] += work.receipt.value;
+        acc[monthYear] += work?.receipt?.value;
         return acc;
       }, {});
 

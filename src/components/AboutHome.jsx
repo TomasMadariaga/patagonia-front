@@ -17,12 +17,6 @@ export const AboutHome = () => {
           necesidades y sueños de cada cliente, garantizando calidad y
           satisfacción en cada proyecto. 
         </p>
-        {/* <Link
-          to="/our-projects"
-          className="py-2 mt-6 px-4 text-white lg:self-auto self-center bg-black/85 rounded-full transition-all duration-200 hover:bg-black/95"
-        >
-          Descubre nuestros proyectos
-        </Link> */}
       </div>
       <div>
         <img

@@ -141,8 +141,12 @@ export const NavBar = () => {
                 <ul className="absolute w-fit top-full left-0 bg-white shadow-md border border-gray-300 rounded-md py-2">
                   <li>
                     <Link
-                      onClick={handleOpenProfile}
+                      onClick={(e) => {
+                        handleOpenProfile();
+                        handleLinkClick(e);
+                      }}
                       className="block px-4 py-2 hover:bg-gray-100"
+                      to={"/profile"}
                     >
                       Mi perfil
                     </Link>
@@ -150,7 +154,10 @@ export const NavBar = () => {
                   {isAuthenticated && user?.role === "Admin" && (
                     <li>
                       <Link
-                        onClick={handleOpenProfile}
+                        onClick={(e) => {
+                          handleOpenProfile();
+                          handleLinkClick(e);
+                        }}
                         to={"/admin"}
                         className="block px-4 py-2 text-white bg-red-300 hover:bg-red-400"
                       >
@@ -161,7 +168,10 @@ export const NavBar = () => {
                   {isAuthenticated && user?.role === "Cliente" && (
                     <li>
                       <Link
-                        onClick={handleOpenProfile}
+                        onClick={(e) => {
+                          handleOpenProfile();
+                          handleLinkClick(e);
+                        }}
                         to={"/activity"}
                         className="block px-4 py-2 hover:bg-gray-100"
                       >
@@ -172,7 +182,10 @@ export const NavBar = () => {
                   {isAuthenticated && (user?.role !== "Cliente" && user?.role !== "Admin") && (
                     <li>
                       <Link
-                        onClick={handleOpenProfile}
+                        onClick={(e) => {
+                          handleOpenProfile();
+                          handleLinkClick(e);
+                        }}
                         to={"/activity-professional"}
                         className="block px-4 py-2 hover:bg-gray-100"
                       >

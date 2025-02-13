@@ -24,13 +24,6 @@ export const OurMission = () => {
               Garantizamos que cada profesional cumple con altos estándares de
               calidad y compromiso con la satisfacción del cliente
             </li>
-            {/* <li className="lg:border-none lg:bg-white  bg-gray-200 border-2 border-blue-500 lg:rounded-none rounded-xl lg:shadow-none shadow-lg lg:p-0 p-1 lg:block flex flex-col gap-1">
-              <span className="text-slate-800 font-bold font-inter">
-                Accesibilidad global:
-              </span>{" "}
-              Creemos en la inclusión y acceso a servicios profesionales sin
-              importar la ubicación geográfica
-            </li> */}
             <li className="lg:border-none lg:bg-gray-100 bg-gray-200 border-2 border-blue-500 lg:rounded-none rounded-xl lg:shadow-none shadow-lg lg:p-0 p-1 lg:block flex flex-col gap-1">
               <span className="text-slate-800 font-bold font-inter">
                 Empoderamiento local:

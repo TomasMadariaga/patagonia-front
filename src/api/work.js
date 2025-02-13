@@ -2,6 +2,8 @@ import api from "./axios";
 
 export const createWork = (work) => api.post("work", work);
 
+export const getWorks = () => api.get('work');
+
 export const getWorksByClient = (id) => api.get(`work/client/${id}`);
 
 export const getWorksByProfessional = (id) =>

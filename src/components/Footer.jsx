@@ -39,7 +39,10 @@ export const Footer = () => {
             <p className="lg:font-normal font-semibold">Síganos</p>
             <ul className="flex lg:gap-5 gap-7 text-light-gray">
               <li>
-                <a className="transition-all duration-150" href="#">
+                <a
+                  className="transition-all duration-150"
+                  href="https://www.linkedin.com/in/cruz-patagonia-656107351"
+                >
                   <LinkedInIcon className="transition-all duration-250 lg:scale-100 lg:hover:scale-125 scale-125" />
                 </a>
               </li>
@@ -52,12 +55,18 @@ export const Footer = () => {
                 </a>
               </li>
               <li>
-                <a href="#">
+                <a
+                  className="transition-all duration-150"
+                  href="https://www.facebook.com/profile.php?id=61572858736593"
+                >
                   <FacebookIcon className="transition-all duration-250 lg:scale-100 lg:hover:scale-125 scale-125" />
                 </a>
               </li>
               <li>
-                <a className="transition-all duration-150" href="#">
+                <a
+                  className="transition-all duration-150"
+                  href="https://www.tiktok.com/@cruzpatagonia"
+                >
                   <TikTokIcon className="transition-all duration-250 lg:scale-100 lg:hover:scale-125 scale-125" />
                 </a>
               </li>
@@ -84,14 +93,6 @@ export const Footer = () => {
               Sobre nosotros
             </Link>
           </li>
-          {/* <li>
-            <Link
-              to="our-projects"
-              className="transition-all duration-200 hover:underline "
-            >
-              Nuestros Proyectos
-            </Link>
-          </li> */}
           <li>
             <Link
               to="terms-and-conditions"

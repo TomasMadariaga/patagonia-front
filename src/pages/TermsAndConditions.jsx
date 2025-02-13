@@ -147,7 +147,7 @@ export const TermsAndConditions = () => {
                 <li>
                   La Empresa no se responsabiliza de la{" "}
                   <span className="font-semibold">calidad</span> o{" "}
-                  <span className="font-semibold">disponibilidad</span>
+                  <span className="font-semibold">disponibilidad </span>
                   de los servicios prestados por los profesionales.
                 </li>
                 <li>

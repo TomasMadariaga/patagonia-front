@@ -7,7 +7,9 @@ import {
   updateAWork,
   getReceiptsByProfessionalId,
   getWorksByProfessional,
+  getWorks,
 } from "../api/work";
+import { deleteworkPhoto, getWorkPhoto, uploadWorkPhoto } from "../api/user";
 
 export const WorkContext = createContext();
 
@@ -55,6 +57,26 @@ export const WorkProvider = ({ children }) => {
     return data;
   };
 
+  const findWorks = async () => {
+    const { data } = await getWorks();
+    return data;
+  };
+
+  const uploadWorkPhotos = async (id, workPhotos) => {
+    const { data } = await uploadWorkPhoto(id, workPhotos);
+    return data;
+  };
+
+  const getWorkPhotos = async(id) => {
+    const {data} = await getWorkPhoto(id);
+    return data;
+  }
+
+  const deleteWorkPhoto = async (id, filename) => {
+    const {data} = await deleteworkPhoto(id, filename);
+    return data;
+  }
+
   return (
     <WorkContext.Provider
       value={{
@@ -65,6 +87,10 @@ export const WorkProvider = ({ children }) => {
         deleteAWork,
         updateWork,
         findReceiptsByProfessionalId,
+        findWorks,
+        uploadWorkPhotos,
+        getWorkPhotos,
+        deleteWorkPhoto
       }}
     >
       {children}
