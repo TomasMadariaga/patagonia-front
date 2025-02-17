@@ -7,6 +7,7 @@ import {
   deleteuser,
   findAllClients,
   findUser,
+  getDniPhoto,
 } from "../api/user";
 
 export const UserContext = createContext();
@@ -58,6 +59,11 @@ export const UserProvider = ({ children }) => {
     return data;
   }
 
+  const getDniPhotos = async (id) => {
+    const {data} = await getDniPhoto(id);
+    return data;
+  }
+
   return (
     <UserContext.Provider
       value={{
@@ -69,7 +75,8 @@ export const UserProvider = ({ children }) => {
         findClients,
         updateUser,
         deleteUser,
-        findAUser
+        findAUser,
+        getDniPhotos
       }}
     >
       {children}

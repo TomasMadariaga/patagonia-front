@@ -45,12 +45,24 @@ export const Budgets = () => {
       <table className="w-full border border-gray-300 shadow-md table-fixed">
         <thead className="bg-gray-200">
           <tr>
-            <th className="border px-4 py-2 w-1/6 text-xs xl:text-base">Nº presupuesto</th>
-            <th className="border px-4 py-2 w-1/6 text-xs xl:text-base">Cliente</th>
-            <th className="border px-4 py-2 w-1/6 text-xs xl:text-base">Dirección</th>
-            <th className="border px-4 py-2 w-1/6 text-xs xl:text-base">Servicio</th>
-            <th className="border px-4 py-2 w-1/6 text-xs xl:text-base">Valor</th>
-            <th className="border px-4 py-2 w-1/6 text-xs xl:text-base">Acciones</th>
+            <th className="border px-2 py-1 md:px-4 md:py-2 w-1/6 text-xs md:text-sm lg:text-base">
+              Nº presupuesto
+            </th>
+            <th className="border px-2 py-1 md:px-4 md:py-2 w-1/6 text-xs md:text-sm lg:text-base">
+              Cliente
+            </th>
+            <th className="border px-2 py-1 md:px-4 md:py-2 w-1/6 text-xs md:text-sm lg:text-base">
+              Dirección
+            </th>
+            <th className="border px-2 py-1 md:px-4 md:py-2 w-1/6 text-xs md:text-sm lg:text-base">
+              Servicio
+            </th>
+            <th className="border px-2 py-1 md:px-4 md:py-2 w-1/6 text-xs md:text-sm lg:text-base">
+              Valor
+            </th>
+            <th className="border px-2 py-1 md:px-4 md:py-2 w-1/6 text-xs md:text-sm lg:text-base">
+              Acciones
+            </th>
           </tr>
         </thead>
       </table>
@@ -60,14 +72,22 @@ export const Budgets = () => {
             {budgets.length > 0 ? (
               budgets.map((budget) => (
                 <tr key={budget.id} className="hover:bg-gray-100">
-                  <td className="border px-4 py-2 w-1/6">{budget?.id}</td>
-                  <td className="border px-4 py-2 w-1/6">{`${budget.client?.name} ${budget.client?.lastname}`}</td>
-                  <td className="border px-4 py-2 w-1/6">{budget?.address}</td>
-                  <td className="border px-4 py-2 w-1/6">{budget?.service}</td>
-                  <td className="border px-4 py-2 w-1/6">
+                  <td className="border px-2 py-1 md:px-4 md:py-2 w-1/6 text-xs md:text-sm lg:text-base">
+                    {budget?.id}
+                  </td>
+                  <td className="border px-2 py-1 md:px-4 md:py-2 w-1/6 text-xs md:text-sm lg:text-base">
+                    {`${budget.client?.name} ${budget.client?.lastname}`}
+                  </td>
+                  <td className="border px-2 py-1 md:px-4 md:py-2 w-1/6 text-xs md:text-sm lg:text-base">
+                    {budget?.address}
+                  </td>
+                  <td className="border px-2 py-1 md:px-4 md:py-2 w-1/6 text-xs md:text-sm lg:text-base">
+                    {budget?.service}
+                  </td>
+                  <td className="border px-2 py-1 md:px-4 md:py-2 w-1/6 text-xs md:text-sm lg:text-base">
                     ${budget.value.toLocaleString("es")}
                   </td>
-                  <td className="border px-4 py-2 w-1/6">
+                  <td className="border px-2 py-1 md:px-4 md:py-2 w-1/6 text-xs md:text-sm lg:text-base">
                     <DownloadBudget
                       budgetNumber={budget?.id}
                       client={budget?.client}
@@ -81,7 +101,7 @@ export const Budgets = () => {
               ))
             ) : (
               <tr>
-                <td colSpan="6" className="text-center py-4 text-gray-500">
+                <td colSpan="6" className="text-center py-4 text-gray-500 text-xs md:text-sm lg:text-base">
                   {error ? error : "No hay presupuestos disponibles."}
                 </td>
               </tr>

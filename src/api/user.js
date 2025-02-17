@@ -10,9 +10,18 @@ export const uploadImage = (id, profilePicture) =>
 export const uploadWorkPhoto = (id, workPhotos) =>
   api.post(`upload/work/${id}`, workPhotos);
 
+export const uploadDniPhoto = (id, dniPhotos) =>
+  api.post(`upload/dni/${id}`, dniPhotos);
+
+export const uploadCriminalRecord = (id, criminalRecord) =>
+  api.post(`upload/criminal-record/${id}`, criminalRecord);
+
 export const getWorkPhoto = (id) => api.get(`upload/work/${id}`);
 
-export const deleteworkPhoto = (id, filename) => api.delete(`upload/${id}/${filename}`,)
+export const getDniPhoto = (id) => api.get(`upload/dni/${id}`);
+
+export const deleteworkPhoto = (id, filename) =>
+  api.delete(`upload/${id}/${filename}`);
 
 export const findAllUsers = () => api.get("user");
 

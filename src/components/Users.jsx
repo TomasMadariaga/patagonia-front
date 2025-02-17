@@ -7,6 +7,19 @@ export const Users = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [editUser, setEditUser] = useState(null);
   const [deleted, setDeleted] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = (user) => {
+    setSelectedUser(user);
+    console.log(user);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setSelectedUser(null);
+    setIsModalOpen(false);
+  };
 
   const filteredUsers = users.filter((user) =>
     Object.values(user).some((value) =>
@@ -26,11 +39,11 @@ export const Users = () => {
     e.preventDefault();
     if (editUser) {
       try {
-        const {resetPasswordToken, ...rest} = editUser 
+        const { resetPasswordToken, ...rest } = editUser;
         await updateUser(editUser.id, rest);
         setEditUser(null);
       } catch (error) {
-        console.log(error)
+        console.log(error);
         throw new Error(error);
       }
     }
@@ -113,7 +126,10 @@ export const Users = () => {
               />
             </div>
             <div className="mb-4">
-              <label htmlFor="password" className="block text-sm font-medium mb-2">
+              <label
+                htmlFor="password"
+                className="block text-sm font-medium mb-2"
+              >
                 Contraseña
               </label>
               <input
@@ -173,6 +189,7 @@ export const Users = () => {
                 <th className="border px-4 py-2">Calificación</th>
                 <th className="border px-4 py-2">Total Votos</th>
                 <th className="border px-4 py-2">Foto de Perfil</th>
+                <th className="border px-4 py-2">Documentos</th>
                 <th className="border px-4 py-2">Acciones</th>
               </tr>
             </thead>
@@ -199,6 +216,14 @@ export const Users = () => {
                   </td>
                   <td className="border px-4 py-2">
                     <button
+                      onClick={() => openModal(user)}
+                      className="text-blue-600 hover:text-blue-800 underline"
+                    >
+                      Ver documentos
+                    </button>
+                  </td>
+                  <td className="border px-4 py-2">
+                    <button
                       className="text-blue-500 pr-5"
                       onClick={() => setEditUser(user)}
                     >
@@ -215,6 +240,83 @@ export const Users = () => {
               ))}
             </tbody>
           </table>
+          {isModalOpen && selectedUser && (
+            <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+              <div className="bg-white p-6 rounded-lg shadow-lg max-w-2xl w-full">
+                <button
+                  onClick={closeModal}
+                  className="absolute top-4 right-4 text-gray-600 hover:text-gray-900"
+                >
+                  <svg
+                    className="w-6 h-6"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
+                </button>
+                <h2 className="text-xl font-bold mb-4">
+                  Documentos de {selectedUser.name}
+                </h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <h3 className="text-lg font-semibold mb-2">
+                      Frente del DNI
+                    </h3>
+                    {selectedUser.frontDni ? (
+                      <img
+                        src={selectedUser.frontDni}
+                        alt="Frente del DNI"
+                        className="w-full h-auto rounded-lg shadow-md"
+                      />
+                    ) : (
+                      <p className="text-gray-500">No disponible</p>
+                    )}
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-semibold mb-2">
+                      Dorso del DNI
+                    </h3>
+                    {selectedUser.backDni ? (
+                      <img
+                        src={selectedUser.backDni}
+                        alt="Dorso del DNI"
+                        className="w-full h-auto rounded-lg shadow-md"
+                      />
+                    ) : (
+                      <p className="text-gray-500">No disponible</p>
+                    )}
+                  </div>
+                </div>
+                <div className="mt-6">
+                  <h3 className="text-lg font-semibold mb-2">
+                    Certificado de Antecedentes Penales
+                  </h3>
+                  {selectedUser.criminalRecord ? (
+                    <iframe
+                      src={`http://localhost:3000/uploads/criminal-records/${selectedUser.id}/${selectedUser.criminalRecord}`}
+                      className="w-full h-72 rounded-lg shadow-md"
+                      title="Certificado de Antecedentes Penales"
+                    />
+                  ) : (
+                    <p className="text-gray-500">No disponible</p>
+                  )}
+                </div>
+                <button
+                  onClick={closeModal}
+                  className="mt-6 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700"
+                >
+                  Cerrar
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       )}
     </div>

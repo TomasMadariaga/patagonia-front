@@ -25,6 +25,7 @@ export const Register = () => {
   const onSubmit = handleSubmit(async (values) => {
     try {
       const { confirmPassword, terms, ...rest } = values;
+     
       await signup(rest);
     } catch (error) {
       toast.error(`${error}`, {
@@ -222,12 +223,48 @@ export const Register = () => {
             )}
           </div>
           <div className="flex flex-col gap-2">
+            <label className="text-slate-700" htmlFor="frontDni">
+              Frente dni
+            </label>
+            <input
+              className="rounded-md border w-full shadow-md p-2 focus:border-red-700 focus:outline-none focus:ring-4 focus:ring-red-200"
+              {...register("frontDni", {
+                required: "Frente de DNI es requerido",
+              })}
+              type="file"
+              accept="image/png, image/jpeg"
+            />
+            {errors.frontDni && (
+              <span className="text-red-600 text-sm">
+                {errors.frontDni.message}
+              </span>
+            )}
+          </div>
+          <div className="flex flex-col gap-2">
+            <label className="text-slate-700" htmlFor="backDni">
+              Dorso dni
+            </label>
+            <input
+              className="rounded-md border w-full shadow-md p-2 focus:border-red-700 focus:outline-none focus:ring-4 focus:ring-red-200"
+              {...register("backDni", {
+                required: "Dorso de DNI es requerido",
+              })}
+              type="file"
+              accept="image/png, image/jpeg"
+            />
+            {errors.backDni && (
+              <span className="text-red-600 text-sm">
+                {errors.backDni.message}
+              </span>
+            )}
+          </div>
+          <div className="flex flex-col gap-2">
             <div className="flex items-center">
               <input
                 type="checkbox"
                 id="terms"
                 {...register("terms", {
-                  required: "Debes aceptar los términos y servicios.",
+                  required: "Debes aceptar los términos y condiciones.",
                 })}
                 className="mr-2"
               />
@@ -238,7 +275,7 @@ export const Register = () => {
                   to="/terms-and-conditions"
                   className="text-red-700 hover:underline"
                 >
-                  términos y servicios
+                  términos y condiciones
                 </Link>
               </label>
             </div>

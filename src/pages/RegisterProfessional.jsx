@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import { useAuth } from "../context/AuthContext";
-import { useState} from "react";
+import { useWork } from "../context/WorkContext";
+import { useState } from "react";
 import { toast } from "react-toastify";
 
 export const RegisterProfessional = () => {
@@ -17,7 +18,7 @@ export const RegisterProfessional = () => {
 
   const onSubmit = handleSubmit(async (values) => {
     try {
-      const {confirmPassword, ...rest} = values
+      const { confirmPassword, ...rest } = values;
       await signup(rest);
       toast.success("Profesional creado con exito", {
         toastId: 1,
@@ -26,7 +27,7 @@ export const RegisterProfessional = () => {
         autoClose: 3000,
         closeButton: false,
         className: "text-center",
-      })
+      });
     } catch (error) {
       toast.error(`${error}`, {
         toastId: 1,
@@ -57,7 +58,7 @@ export const RegisterProfessional = () => {
   return (
     <div className="flex flex-col items-center font-inter">
       <form
-        className="flex flex-col gap-6 w-1/4 px-2 pb-5"
+        className="flex flex-col gap-6 xl:w-1/4 px-2 pb-5"
         onSubmit={onSubmit}
         encType="multipart/form-data"
       >
@@ -185,7 +186,8 @@ export const RegisterProfessional = () => {
               {...register("confirmPassword", {
                 required: "La confirmación de contraseña es requerida.",
                 validate: (value) =>
-                  value === watch("password") || "Las contraseñas no coinciden.",
+                  value === watch("password") ||
+                  "Las contraseñas no coinciden.",
               })}
               type="password"
             />
@@ -205,7 +207,8 @@ export const RegisterProfessional = () => {
                 required: "El número de teléfono es requerido.",
                 pattern: {
                   value: /^[0-9]{8,15}$/,
-                  message: "El número de teléfono debe tener entre 8 y 15 dígitos.",
+                  message:
+                    "El número de teléfono debe tener entre 8 y 15 dígitos.",
                 },
               })}
               type="text"
@@ -213,6 +216,60 @@ export const RegisterProfessional = () => {
             {errors.phone && (
               <span className="text-red-600 text-sm">
                 {errors.phone.message}
+              </span>
+            )}
+          </div>
+          <div className="flex flex-col gap-2">
+            <label className="text-slate-700" htmlFor="frontDni">
+              Frente dni
+            </label>
+            <input
+              className="rounded-md border w-full shadow-md p-2 focus:border-red-700 focus:outline-none focus:ring-4 focus:ring-red-200"
+              {...register("frontDni", {
+                required: true,
+              })}
+              type="file"
+              accept="image/png, image/jpeg"
+            />
+            {errors.frontDni && (
+              <span className="text-red-600 text-sm">
+                {errors.frontDni.message}
+              </span>
+            )}
+          </div>
+          <div className="flex flex-col gap-2">
+            <label className="text-slate-700" htmlFor="backDni">
+              Dorso dni
+            </label>
+            <input
+              className="rounded-md border w-full shadow-md p-2 focus:border-red-700 focus:outline-none focus:ring-4 focus:ring-red-200"
+              {...register("backDni", {
+                required: true,
+              })}
+              type="file"
+              accept="image/png, image/jpeg"
+            />
+            {errors.backDni && (
+              <span className="text-red-600 text-sm">
+                {errors.backDni.message}
+              </span>
+            )}
+          </div>
+          <div className="flex flex-col gap-2">
+            <label className="text-slate-700" htmlFor="criminalRecords">
+              Certificado de Antecedentes Penales
+            </label>
+            <input
+              className="rounded-md border w-full shadow-md p-2 focus:border-red-700 focus:outline-none focus:ring-4 focus:ring-red-200"
+              {...register("criminalRecords", {
+                required: true,
+              })}
+              type="file"
+              accept="application/pdf"
+            />
+            {errors.criminalRecords && (
+              <span className="text-red-600 text-sm">
+                {errors.criminalRecords.message}
               </span>
             )}
           </div>

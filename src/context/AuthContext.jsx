@@ -6,7 +6,7 @@ import {
   registerRequest,
   scheduleTokenRenewal,
 } from "../api/auth";
-import {uploadImage} from "../api/user"
+import { uploadImage, uploadDniPhoto, uploadCriminalRecord } from "../api/user";
 
 export const AuthContext = createContext();
 
@@ -28,33 +28,56 @@ export const AuthProvider = ({ children }) => {
 
   const signup = async (user) => {
     try {
-      const { profilePicture, ...userData } = user;
+      const { profilePicture, frontDni, backDni, criminalRecords, ...userData } = user;
+  
       const { data } = await registerRequest(userData);
-      scheduleTokenRenewal()
+  
+      scheduleTokenRenewal();
+  
       setIsAuthenticated(true);
       setUser({
         id: data.id,
         name: data.name,
         lastname: data.lastname,
         email: data.email,
-        role: data.role
+        role: data.role,
       });
 
+      if (data.role !== "Cliente" && data.role !== "Admin" && criminalRecords && criminalRecords[0]) {
+        const criminalFormData = new FormData();
+        criminalFormData.append("criminalRecord", criminalRecords[0]);
+        await uploadCriminalRecords(data.id, criminalFormData);
+      }
+  
       if (profilePicture && profilePicture[0]) {
         const id = parseInt(data.id);
-        const formData = new FormData();
-        formData.append("profilePicture", profilePicture[0])
-        await uploadImage(id, formData);
+        const profileFormData = new FormData();
+        profileFormData.append("profilePicture", profilePicture[0]);
+        await uploadImage(id, profileFormData);
+      }
+  
+      const dniFormData = new FormData();
+  
+      if (frontDni && frontDni[0]) {
+        dniFormData.append("frontDni", frontDni[0]);
+      }
+  
+      if (backDni && backDni[0]) {
+        dniFormData.append("backDni", backDni[0]);
+      }
+  
+      if (dniFormData.entries().next().done === false) {
+        await uploadDniPhotos(data.id, dniFormData);
       }
     } catch (error) {
-      throw new Error(error.response.data.message);
+      throw new Error(error.response?.data?.message || "Error al registrar el usuario.");
     }
   };
 
   const signin = async (user) => {
     try {
       const { data } = await loginRequest(user);
-      localStorage.setItem('tokenExpiration', data.user.expirationDate);
+      localStorage.setItem("tokenExpiration", data.user.expirationDate);
       scheduleTokenRenewal(data.user.expiresIn);
       setIsAuthenticated(true);
       setUser({
@@ -62,7 +85,7 @@ export const AuthProvider = ({ children }) => {
         name: data.user.name,
         lastname: data.user.lastname,
         email: data.user.email,
-        role: data.user.role
+        role: data.user.role,
       });
     } catch (error) {
       throw new Error(error.response.data.message);
@@ -86,7 +109,7 @@ export const AuthProvider = ({ children }) => {
         name: data.data.user.name,
         lastname: data.data.user.lastname,
         email: data.data.user.email,
-        role: data.data.user.role
+        role: data.data.user.role,
       });
     } catch (error) {
       setIsAuthenticated(false);
@@ -94,10 +117,21 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const uploadDniPhotos = async (id, dniPhotos) => {
+    const { data } = await uploadDniPhoto(id, dniPhotos);
+    return data;
+  };
+
+  const uploadCriminalRecords = async (id, criminalRecord) => {
+    const { data } = await uploadCriminalRecord(id, criminalRecord);
+    return data;
+  };
+
   useEffect(() => {
-    const expirationDate = localStorage.getItem('tokenExpiration');
+    const expirationDate = localStorage.getItem("tokenExpiration");
     if (expirationDate) {
-      const expiresIn = (new Date(expirationDate).getTime() - Date.now()) / 1000;
+      const expiresIn =
+        (new Date(expirationDate).getTime() - Date.now()) / 1000;
       if (expiresIn > 0) {
         scheduleTokenRenewal(expiresIn);
       }
@@ -114,7 +148,8 @@ export const AuthProvider = ({ children }) => {
         isAuthenticated,
         logout,
         checkUser,
-        updateUserData
+        updateUserData,
+        uploadDniPhotos,
       }}
     >
       {children}

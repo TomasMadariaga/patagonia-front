@@ -38,21 +38,13 @@ export const Works = () => {
     }
   };
 
-  const formatDate = (dateString) => {
-    if (!dateString) return "Fecha no disponible";
-    const date = new Date(dateString);
-    const day = String(date.getDate()).padStart(2, '0');
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const year = date.getFullYear();
-    return `${day}/${month}/${year}`;
-  };
-
   const handleSearch = (event) => {
     const term = event.target.value.toLowerCase();
     setSearchTerm(term);
 
     const filtered = works.filter((work) => {
-      const fullName = `${work.projectLeader.name} ${work.projectLeader.lastname}`.toLowerCase();
+      const fullName =
+        `${work.projectLeader.name} ${work.projectLeader.lastname}`.toLowerCase();
       const value = work.value.toString().toLowerCase();
 
       return (
@@ -62,7 +54,8 @@ export const Works = () => {
         work.status.toLowerCase().includes(term) ||
         formatDate(work.createdAt).includes(term) ||
         value.includes(term)
-    )});
+      );
+    });
 
     setFilteredWorks(filtered);
   };
@@ -89,10 +82,7 @@ export const Works = () => {
             <tr className="bg-gray-200 text-gray-700">
               <th className="py-2 px-4 border">Dirección</th>
               <th className="py-2 px-4 border">Estado</th>
-              <th className="py-2 px-4 border">Líder de Proyecto</th>
-              <th className="py-2 px-4 border">Fecha</th>
               <th className="py-2 px-4 border">Servicio</th>
-              <th className="py-2 px-4 border">Valor</th>
               <th className="py-2 px-4 border">Acciones</th>
             </tr>
           </thead>
@@ -100,7 +90,7 @@ export const Works = () => {
             {filteredWorks.map((work) => (
               <tr key={work?.id} className="text-gray-700">
                 <td className="py-2 px-4 border">{work?.address}</td>
-                <td className="py-2 px-4 border">
+                <td className="py-2 border text-center">
                   <span
                     className={`px-3 py-1 rounded-full text-sm font-medium ${
                       work.status === "Activo"
@@ -111,15 +101,10 @@ export const Works = () => {
                     {work?.status}
                   </span>
                 </td>
-                <td className="py-2 px-4 border gap-2">
-                  {work?.projectLeader.name} {work?.projectLeader.lastname}
-                </td>
-                <td className="py-2 px-4 border">{formatDate(work?.createdAt)}</td>
+
                 <td className="py-2 px-4 border">{work?.service}</td>
-                <td className="py-2 px-4 border font-bold text-green-600">
-                  ${work.value.toLocaleString("es")}
-                </td>
-                <td className="py-2 px-4 border">
+
+                <td className="py-2 px-4 border text-center">
                   <button
                     className="p-2 rounded-md font-medium text-white bg-blue-500 transition-colors hover:bg-blue-600"
                     onClick={() => openModal(work)}

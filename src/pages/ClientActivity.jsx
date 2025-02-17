@@ -6,7 +6,7 @@ import { useWork } from "../context/WorkContext";
 
 export const ClientActivity = () => {
   const { user } = useAuth();
-  const { onRate} = useUser();
+  const { onRate } = useUser();
   const { findWorksByClient, deleteAWork, updateWork } = useWork();
 
   const [error, setError] = useState(null);
@@ -63,28 +63,25 @@ export const ClientActivity = () => {
   if (error) return <div className="mt-20">Error: {error}</div>;
 
   return (
-    <div className="mt-16 flex flex-1 min-h-96 justify-center bg-gray-100 p-6">
-      <div className="w-full max-w-7xl overflow-x-auto  block max-h-[500px] overflow-y-auto">
-        <table className="min-w-full bg-white border border-gray-200 shadow-lg rounded-lg">
-          <thead className="bg-gray-200">
+    <div className="mt-16 flex flex-1 min-h-96 justify-center bg-gray-100 p-4 md:p-6">
+      <div className="w-full max-w-7xl overflow-x-auto">
+        <table className="w-full bg-white border border-gray-200 shadow-lg rounded-lg text-xs md:text-sm">
+          <thead className="bg-gray-200 text-[10px] md:text-sm">
             <tr>
-              <th className="p-3 text-left">Dirección</th>
-              <th className="p-3 text-left">Estado</th>
-              <th className="p-3 text-left">A cargo</th>
-              <th className="p-3 text-left">Presupuesto Nº</th>
-              <th className="p-3 text-left">Servicio</th>
-              <th className="p-3 text-left">Total</th>
-              <th className="p-3 text-center">Acciones</th>
+              <th className="p-2 md:p-3 text-left">Estado</th>
+              <th className="p-2 md:p-3 text-left">A cargo</th>
+              <th className="p-2 md:p-3 text-left">Servicio</th>
+              <th className="p-2 md:p-3 text-left">Total</th>
+              <th className="p-2 md:p-3 text-center">Acciones</th>
             </tr>
           </thead>
           <tbody>
             {works.length > 0 ? (
               works.map((work) => (
                 <tr key={work.id} className="border-t">
-                  <td className="p-3">{work.address}</td>
-                  <td className="p-3">
+                  <td className="p-2 md:p-3">
                     <span
-                      className={`px-3 py-1 rounded-full text-sm font-medium ${
+                      className={`px-2 md:px-3 py-1 rounded-full text-xs md:text-sm font-medium ${
                         work.status === "Pendiente"
                           ? "bg-gray-400 text-white"
                           : work.status === "Activo"
@@ -95,23 +92,22 @@ export const ClientActivity = () => {
                       {work.status}
                     </span>
                   </td>
-                  <td className="p-3">{work.projectLeader.name} {work.projectLeader.lastname}</td>
-                  <td className="p-3">{work.receipt.budgetNumber}</td>
-                  <td className="p-3">{work.service}</td>
-                  <td className="p-3 font-bold text-green-600">
+                  <td className="p-2 md:p-3">{work.projectLeader.name} {work.projectLeader.lastname}</td>
+                  <td className="p-2 md:p-3">{work.service}</td>
+                  <td className="p-2 md:p-3 font-bold text-green-600">
                     ${(work.receipt.total).toLocaleString("es")}
                   </td>
-                  <td className="p-3 text-center">
+                  <td className="p-2 md:p-3 text-center">
                     {work.status === "Pendiente" ? (
                       <>
                         <button
-                          className="bg-green-500 px-3 py-1 text-white rounded-md hover:bg-green-600 mr-2"
+                          className="bg-green-500 px-2 md:px-3 py-1 mb-2 text-white rounded-md hover:bg-green-600 xl:mr-2 xl:mb-0"
                           onClick={() => acceptWork(work.id, work)}
                         >
                           Aceptar
                         </button>
                         <button
-                          className="bg-red-500 px-3 py-1 text-white rounded-md hover:bg-red-600"
+                          className="bg-red-500 px-2 md:px-3 py-1 text-white rounded-md hover:bg-red-600"
                           onClick={() => {
                             deleteAWork(work.id);
                             getWorkDetails();
@@ -122,7 +118,7 @@ export const ClientActivity = () => {
                       </>
                     ) : (
                       <button
-                        className="bg-blue-500 px-3 py-1 text-white rounded-md hover:bg-blue-600"
+                        className="bg-blue-500 px-2 md:px-3 py-1 text-white rounded-md hover:bg-blue-600"
                         onClick={() => openModal(work)}
                       >
                         Detalles
@@ -133,7 +129,7 @@ export const ClientActivity = () => {
               ))
             ) : (
               <tr>
-                <td colSpan="7" className="p-4 text-center text-gray-600">
+                <td colSpan="5" className="p-4 text-center text-gray-600">
                   No hay trabajos disponibles.
                 </td>
               </tr>
